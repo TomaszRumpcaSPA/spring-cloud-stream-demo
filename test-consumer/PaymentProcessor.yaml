@@ -1,0 +1,40 @@
+asyncapi: 2.0.0
+info:
+  title: Payment Processor
+  version: 1.0.0
+  description: "This service is in charge of processing incoming payments :rocket:"
+channels:
+  payments/dunning-payment:
+    bindings:
+      amqp:
+        expiration: 100000
+        userId: guest
+        cc: [ 'user.logs' ]
+        priority: 10
+        deliveryMode: 2
+        mandatory: false
+        bcc: [ 'external.audit' ]
+        replyTo: user.signedup
+        timestamp: true
+        ack: false
+        bindingVersion: 0.2.0
+        x-retry-template-name: basicRetryTemplate
+    subscribe:
+      message:
+        $ref: '#/components/messages/IncomingPayment'
+components:
+  messages:
+    IncomingPayment:
+      payload:
+        type: object
+        properties:
+          payer:
+            type: string
+            description: Name of the payer
+          iban:
+            type: string
+            description: IBAN of the payer
+          amount:
+            type: number
+            format: double
+            description: payment amount

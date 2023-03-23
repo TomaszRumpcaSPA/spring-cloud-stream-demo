@@ -1,0 +1,57 @@
+asyncapi: 2.0.0
+info:
+  title: Invoicing Messaging API
+  version: '2.0.0'
+  description: |
+    Invoicing is a module responsible for gathering billable entries from other modules, transforming them into domain-specific <b>InvoiceItems</b> and forming an invoice out of them. This API allows for the inteactin with the module.
+  license:
+    name: Finion Capital GmbH
+defaultContentType: application/json
+channels:
+  fi-daidalos.invoicing.invoice-created:
+    description: Informs about sucessful invoice generation
+    subscribe:
+      operationId: generateInvoicePdf
+      message:
+        $ref: '#/components/messages/InvoiceCreated'
+  fi-daidalos.invoicing.offer-invoiced:
+    description: Informs about the offer being invoiced
+    publish:
+      operationId: offerInvoiced
+      message:
+        $ref: '#/components/messages/OfferInvoiced'
+components:
+  messages:
+    InvoiceCreated:
+      name: invoiceCreated
+      title: Invoice created
+      summary: Inform about invoice creation
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/InvoiceCreatedPayload"
+    OfferInvoiced:
+      name: offerInvoiced
+      title: Offer invoiced
+      summary: Informs about the offer being invoiced
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/OfferInvoicedPayload"
+  schemas:
+    InvoiceCreatedPayload:
+      type: object
+      properties:
+        invoiceId:
+          type: number
+          description: Invoice identifier
+    OfferInvoicedPayload:
+      type: object
+      properties:
+        offerId:
+          type: number
+          descripiton: Offer identifier
+        invoiceReference:
+          type: string
+          description: Reference of the invoice containing the offer
+        invoiceDate:
+          type: string
+          format: date

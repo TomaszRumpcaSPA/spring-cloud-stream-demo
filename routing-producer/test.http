@@ -1,0 +1,30 @@
+## request which creates a payment which is supposed to be routed to dunning-payments queue
+POST localhost:9001
+
+# binding key
+invoicing-payment-class
+
+###
+## request which creates a payment which is supposed to be routed to dunning-payments queue
+POST localhost:9001
+
+# binding key
+dunning-payment-class
+
+###
+
+## request which creates a payment which is supposed to be routed to dunning-payments queue
+POST localhost:9001
+
+# binding key
+unknown-payment-class
+
+###
+
+## request which creates a payment which is supposed to be routed to dunning-payments queue
+POST localhost:9001
+
+# no binding key
+
+
+###

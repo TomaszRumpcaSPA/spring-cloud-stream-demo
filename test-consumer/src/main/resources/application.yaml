@@ -1,0 +1,25 @@
+server:
+  port: 9003
+
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:daidalos-rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    virtual-host: ${RABBITMQ_VHOST:finion}
+    username: ${RABBITMQ_USER:finion}
+    password: changeme
+    ssl.enabled: false
+
+  cloud:
+    stream:
+      rabbit:
+        bindings:
+          LogTestPaymentIn:
+            consumer:
+              binding-routing-key: invoicing-payment-class
+              expires: 100
+      bindings:
+        LogTestPaymentIn:
+          destination: payment-exchange
+          group: test
+

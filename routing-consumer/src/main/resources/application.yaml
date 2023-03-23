@@ -1,0 +1,34 @@
+server:
+  port: 9002
+
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:daidalos-rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    virtual-host: ${RABBITMQ_VHOST:finion}
+    username: ${RABBITMQ_USER:finion}
+    password: changeme
+    ssl.enabled: false
+
+  cloud:
+    stream:
+      rabbit:
+        default:
+          consumer:
+            autoBindDlq: true
+            republishToDlq: true
+
+        bindings:
+          LogInvoicePaymentIn:
+            consumer:
+              binding-routing-key: invoicing-payment-class
+          LogDunningPaymentIn:
+            consumer:
+              binding-routing-key: dunning-payment-class
+      bindings:
+        LogInvoicePaymentIn:
+          destination: payment-exchange
+          group: invoicing
+        LogDunningPaymentIn:
+          destination: payment-exchange
+          group: dunning

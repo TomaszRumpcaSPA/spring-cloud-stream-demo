@@ -1,0 +1,40 @@
+server:
+  port: 9001
+
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:daidalos-rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    virtual-host: ${RABBITMQ_VHOST:finion}
+    username: ${RABBITMQ_USER:finion}
+    password: changeme
+    ssl.enabled: false
+#    publisher-returns: true
+#    publisher-confirm-type: correlated
+
+  cloud:
+    stream:
+      rabbit:
+        bindings:
+          PaymentPub:
+            producer:
+#              confirmAckChannel: payment-acks
+              routingKeyExpression: headers['payment-class']
+#              autoBindDlq: true
+#              queueBindingArguments:
+#                invoicing-payment-class: invoicing
+#                dunning-payment-class: dunning
+#              confirmAckChannel: true
+#              deadLetterExchange: not-routable-payments-ex
+#              deadLetterQueueName: not-routable-payments
+#              dlqDeadLetterExchange: not-routable-payments-ex-dlq
+      bindings:
+        PaymentPub:
+          destination: payment-exchange
+#          producer:
+#            error-channel-enabled: true
+#            required-groups:
+#              - invoicing
+#              - dunning
+
+
