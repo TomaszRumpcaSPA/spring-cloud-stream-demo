@@ -1,0 +1,8 @@
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:daidalos-rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    virtual-host: ${RABBITMQ_VHOST:finion}
+    username: ${RABBITMQ_USER:finion}
+    password: changeme
+    ssl.enabled: false

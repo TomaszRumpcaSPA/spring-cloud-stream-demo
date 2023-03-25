@@ -17,6 +17,7 @@
 
     <modules>
         <module>functional-programming-model</module>
+        <module>asyncapi-demo</module>
         <module>annotation-based-model</module>
         <module>routing-producer</module>
         <module>routing-consumer</module>
