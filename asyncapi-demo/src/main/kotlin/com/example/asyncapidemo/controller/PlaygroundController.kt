@@ -1,6 +1,6 @@
 package com.example.asyncapidemo.controller
 
-import com.finion.asyncapi.PaymentSupplier
+import com.finion.asyncapi.PaymentCloudStreamPublisher
 import com.finion.asyncapi.models.Payment
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -12,7 +12,7 @@ import java.time.LocalDate
 @RestController
 @RequestMapping("/")
 class PlaygroundController(
-    val publisher: PaymentSupplier,
+    val publisher: PaymentCloudStreamPublisher,
 ) {
 
     @PostMapping
